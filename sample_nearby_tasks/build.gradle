@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply from: '../android_commons.gradle'
+apply from: '../android_dependencies.gradle'
+
+android {
+
+    defaultConfig {
+        applicationId "com.ibm.casesdk.sample2"
+        versionCode 4
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+
+            def apk = output.outputFile;
+            def newName;
+
+            newName = apk.name.replace(project.name, "IBM_Nearby_Tasks")
+            newName = newName.replace(".apk", "-" + defaultConfig.versionName + "." + defaultConfig.versionCode + "-" + variant.buildType.name.toUpperCase() + ".apk");
+            newName = newName.replace("-" + variant.buildType.name, "");
+
+            output.outputFile = new File(apk.parentFile, newName);
+            if (output.zipAlign) {
+                output.outputFile = new File(apk.parentFile, newName.replace("-unaligned", ""));
+            }
+
+            logger.info('INFO: Set outputFile to ' + output.outputFile + " for [" + variant.name + "]");
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile(name: 'CaseManagerSDK-1.0.2-RELEASE', ext: 'aar')
+
+    def uiDependencies = rootProject.ext.uiDependencies
+    def domainDependencies = rootProject.ext.domainDependencies
+
+    compile uiDependencies.appCompat
+    compile uiDependencies.designCompat
+    compile uiDependencies.butterKnife
+
+
+    compile domainDependencies.gson
+    compile domainDependencies.retrofit
+    compile domainDependencies.okHttp
+    compile domainDependencies.okHttpUrlConnection
+    compile domainDependencies.playServices
+
+}

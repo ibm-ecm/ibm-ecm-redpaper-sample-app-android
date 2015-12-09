@@ -1,0 +1,14 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_padding">4dip</dimen>
+    <dimen name="progress_bar_size">36dip</dimen>
+    <dimen name="list_item_icon_size">64dip</dimen>
+    <dimen name="item_list_icon_padding">8dip</dimen>
+    <dimen name="card_corner_radius">4dip</dimen>
+    <dimen name="task_row_btn_height">40dip</dimen>
+    <dimen name="msg_text_size">24sp</dimen>
+    <item name="default_line_multiplier" type="dimen" format="float">1.2</item>
+</resources>

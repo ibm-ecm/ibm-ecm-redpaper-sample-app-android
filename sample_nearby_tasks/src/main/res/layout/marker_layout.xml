@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding">
+
+    <TextView
+        android:id="@+id/lbl_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/default_padding"
+        android:text="@string/lbl_task"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/marker_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_task"
+        android:padding="@dimen/default_padding"
+        android:textAppearance="?android:textAppearanceMedium"
+        tools:text="@string/lbl_task" />
+
+    <TextView
+        android:id="@+id/lbl_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/marker_task"
+        android:padding="@dimen/default_padding"
+        android:text="@string/lbl_subject"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/marker_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_subject"
+        android:padding="@dimen/default_padding"
+        android:textAppearance="?android:textAppearanceMedium"
+        tools:text="@string/lbl_subject" />
+
+    <Button
+        android:id="@+id/btn_lock"
+        style="?borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btn_finish"
+        android:hapticFeedbackEnabled="true"
+        android:text="@string/action_lock_task"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/btn_finish"
+        style="?borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:hapticFeedbackEnabled="true"
+        android:text="@string/action_finish_task"
+        android:textColor="@color/colorPrimary" />
+
+</RelativeLayout>

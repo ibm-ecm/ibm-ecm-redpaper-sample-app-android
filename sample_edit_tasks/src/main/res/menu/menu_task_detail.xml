@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TaskDetailActivity">
+
+    <item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        android:title="@string/action_save"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom|withText"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_complete"
+        android:orderInCategory="100"
+        android:title="@string/action_complete"
+        android:icon="@drawable/ic_complete_task"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/action_lock"
+        android:orderInCategory="100"
+        android:title="@string/action_lock_task"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_unlock"
+        android:orderInCategory="100"
+        android:title="@string/action_unlock_task"
+        app:showAsAction="never" />
+
+</menu>

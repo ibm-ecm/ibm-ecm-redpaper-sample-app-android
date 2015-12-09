@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Sample2</string>
+    <string name="title_activity_nearby_tasks">Nearby tasks</string>
+    <string name="err_no_location_permission">We need permission to access your location</string>
+    <string name="action_ok">OK</string>
+    <string name="err_no_last_location">No previous location found, waiting for new location…</string>
+    <string name="msg_last_known_location">Your last known location</string>
+    <string name="err_solution_not_found">The solution was not found !</string>
+    <string name="err_role_not_found">We couldn\'t find the role you where looking for !</string>
+    <string name="lbl_task">Task</string>
+    <string name="lbl_subject">Subject</string>
+    <string name="action_lock_task">Lock Task</string>
+    <string name="action_finish_task">Finish Task</string>
+    <string name="msg_task_locked">Task has been locked</string>
+    <string name="msg_task_unlocked">Task has been unlocked</string>
+    <string name="action_unlock_task">Unlock Task</string>
+    <string name="msg_task_action_performed">Performed action \" %s\" on the task</string>
+    <string name="err_no_inbasket">We couldn\'t find the InBasket for the task !</string>
+    <string name="action_not_now">Not now</string>
+    <string name="action_complete">Complete</string>
+</resources>

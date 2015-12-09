@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:lineSpacingMultiplier="@dimen/default_line_multiplier"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:text="@string/msg_could_not_open_task_properties"
+    android:textAppearance="?android:textAppearanceMedium"
+    android:textSize="@dimen/msg_text_size"
+    android:fontFamily="sans-serif-thin">
+
+</TextView>

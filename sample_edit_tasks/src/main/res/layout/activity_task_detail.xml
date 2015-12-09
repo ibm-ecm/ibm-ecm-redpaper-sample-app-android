@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".TaskManagerActivity">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:padding="@dimen/default_padding">
+
+        <!--Add a layout so we can have the same background color as for the task title and subject-->
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/task_info_background">
+
+            <ImageView
+                android:id="@+id/task_status"
+                android:layout_width="@dimen/list_item_icon_size"
+                android:layout_height="@dimen/list_item_icon_size"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/item_list_icon_padding"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_lock_open" />
+
+            <TextView
+                android:id="@+id/task_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/task_status"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/default_padding"
+                android:text="@string/app_name"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/secondary_text" />
+
+            <TextView
+                android:id="@+id/task_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/task_name"
+                android:layout_below="@id/task_name"
+                android:fontFamily="sans-serif"
+                android:padding="@dimen/default_padding"
+                android:text="@string/app_name"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_layout">
+
+            <LinearLayout
+                android:id="@+id/task_properties_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

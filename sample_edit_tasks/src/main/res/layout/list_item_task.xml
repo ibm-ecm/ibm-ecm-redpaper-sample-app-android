@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    android:layout_margin="@dimen/default_padding"
+    android:descendantFocusability="blocksDescendants">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/default_padding">
+
+        <ImageView
+            android:id="@+id/task_status"
+            android:layout_width="@dimen/list_item_icon_size"
+            android:layout_height="@dimen/list_item_icon_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/item_list_icon_padding"
+            android:scaleType="fitXY"
+            tools:src="@drawable/ic_lock_open" />
+
+        <TextView
+            android:id="@+id/task_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/task_status"
+            android:layout_toRightOf="@+id/task_status"
+            android:ellipsize="marquee"
+            android:padding="@dimen/default_padding"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/secondary_text"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/task_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/task_name"
+            android:layout_below="@id/task_name"
+            android:layout_toEndOf="@+id/task_status"
+            android:layout_toRightOf="@+id/task_status"
+            android:ellipsize="marquee"
+            android:padding="@dimen/default_padding"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:fontFamily="sans-serif" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
