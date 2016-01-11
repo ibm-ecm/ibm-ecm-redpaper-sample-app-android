@@ -10,3 +10,4 @@ gen-external-apklibs
 .gradle
 local.properties
 build
+.DS_Store
