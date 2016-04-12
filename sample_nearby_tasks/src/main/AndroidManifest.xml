@@ -29,7 +29,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.ibm.casesdk.sample.nearbytasks.views.NearbyTasksActivity"
+            android:name=".views.NearbyTasksActivity"
             android:label="@string/title_activity_nearby_tasks">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -45,11 +45,8 @@ public class NearbyTasksActivity extends BaseMapLocationActivity implements Near
         setContentView(R.layout.activity_locator);
 
         ButterKnife.bind(this);
-
         setupToolbar();
-
         setupGoogleApiClient();
-
         setupMap();
 
         // init controller
@@ -118,8 +115,8 @@ public class NearbyTasksActivity extends BaseMapLocationActivity implements Near
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_task_marker))
                                 .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                                 .position(new LatLng(task.getLatitude(), task.getLongitude()))
-                                .title(task.getSubject())
-                                .snippet(task.getStepName())
+                                .title(task.getStepName())
+                                .snippet(task.getCaseTitle())
                 );
 
                 // save marker refference
@@ -292,6 +289,10 @@ public class NearbyTasksActivity extends BaseMapLocationActivity implements Near
             // check that we actually have a location
             if (mLastLocation != null) {
                 mCaseController.getNearbyTasks(mLastLocation, Constants.DEFAULT_RADIUS);
+            }else {
+                hideIndeterminateProgress();
+                Snackbar.make(Utils.getContentView(this), "Location is null",
+                        Snackbar.LENGTH_LONG).show();
             }
         }
     }

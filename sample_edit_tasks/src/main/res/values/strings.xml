@@ -2,7 +2,7 @@
     <string name="app_name">Task Manager</string>
     <string name="action_settings">Settings</string>
     <string name="err_solution_not_found">We couldn\'t find the solution you where searching for !</string>
-    <string name="err_role_not_found">We couldn\'t find the role you where searching for !</string>
+    <string name="err_role_not_found">We couldn\'t find the role you were searching for !</string>
     <string name="err_no_inbasket">We couldn\'t find the InBasket for the given task !</string>
     <string name="err_no_tasks_in_basket">No tasks found in the given basket !</string>
     <string name="err_no_workbaskets_for_role">No Work Baskets found for the current role !</string>

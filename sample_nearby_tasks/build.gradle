@@ -5,16 +5,9 @@ apply from: '../android_dependencies.gradle'
 android {
 
     defaultConfig {
-        applicationId "com.ibm.casesdk.sample2"
-        versionCode 4
+        applicationId "com.ibm.casesdk.sample.nearbytasks"
+        versionCode 8
         versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
 
     applicationVariants.all { variant ->
@@ -40,7 +33,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile(name: 'CaseManagerSDK-1.0.2-RELEASE', ext: 'aar')
+    compile(name: 'IBMCaseManagerSDK', ext: 'aar')
 
     def uiDependencies = rootProject.ext.uiDependencies
     def domainDependencies = rootProject.ext.domainDependencies
@@ -51,9 +44,10 @@ dependencies {
 
 
     compile domainDependencies.gson
-    compile domainDependencies.retrofit
     compile domainDependencies.okHttp
     compile domainDependencies.okHttpUrlConnection
+    compile domainDependencies.okHttpLogger
+    compile domainDependencies.retrofitGsonConverter
     compile domainDependencies.playServices
 
 }

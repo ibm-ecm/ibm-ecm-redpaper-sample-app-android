@@ -4,9 +4,9 @@ rootProject.ext {
     recyclerViewVersion = '21.1.0'
     supportLibrary = '23.1.0'
     gsonVersion = '2.2.+'
-    retrofitVersion = '1.9.0'
-    okHttpVersion = '2.3.0'
-    playServicesVersion = '8.1.0'
+    retrofitVersion = '2.0.0'
+    okHttpVersion = '3.2.0'
+    playServicesVersion = '8.3.0'
 
 
 
@@ -31,11 +31,15 @@ rootProject.ext {
             gson               :
                     "com.google.code.gson:gson:$gsonVersion",
             retrofit           :
-                    "com.squareup.retrofit:retrofit:$retrofitVersion",
+                    "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGsonConverter           :
+                    "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             okHttpUrlConnection:
-                    "com.squareup.okhttp:okhttp-urlconnection:$okHttpVersion",
+                    "com.squareup.okhttp3:okhttp-urlconnection:$okHttpVersion",
             okHttp             :
-                    "com.squareup.okhttp:okhttp:$okHttpVersion",
+                    "com.squareup.okhttp3:okhttp:$okHttpVersion",
+            okHttpLogger             :
+                    "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
             playServices       :
                     "com.google.android.gms:play-services:$playServicesVersion",
 

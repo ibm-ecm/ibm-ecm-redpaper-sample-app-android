@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Sample2</string>
+    <string name="app_name">Nearby Tasks</string>
     <string name="title_activity_nearby_tasks">Nearby tasks</string>
     <string name="err_no_location_permission">We need permission to access your location</string>
     <string name="action_ok">OK</string>
     <string name="err_no_last_location">No previous location found, waiting for new location…</string>
     <string name="msg_last_known_location">Your last known location</string>
     <string name="err_solution_not_found">The solution was not found !</string>
-    <string name="err_role_not_found">We couldn\'t find the role you where looking for !</string>
+    <string name="err_role_not_found">We couldn\'t find the role you were looking for !</string>
     <string name="lbl_task">Task</string>
     <string name="lbl_subject">Subject</string>
     <string name="action_lock_task">Lock Task</string>

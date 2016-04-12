@@ -3,9 +3,7 @@ package com.ibm.casesdk.sample.edittask.utils;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -22,12 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-
-import com.ibm.casemanagersdk.internal.model.casedetails.Property;
 import com.ibm.casemanagersdk.sdk.interfaces.ICMProperty;
 import com.ibm.casemanagersdk.sdk.interfaces.ICMTask;
-import com.ibm.casemanagersdk.sdk.interfaces.ICMTaskLayout;
-import com.ibm.casemanagersdk.internal.model.solutions.TaskLayout;
+import com.ibm.casemanagersdk.sdk.interfaces.ICMLayout;
 import com.ibm.casesdk.sample.edittask.R;
 
 import java.util.ArrayList;
@@ -79,7 +74,7 @@ public class TaskDisplayHelper {
      * @param isEditable          - flag that determines if the {@link ICMTask} is editable
      */
     public void displayTask(@NonNull ICMTask task, @NonNull LinearLayout propertiesContainer, boolean isEditable) {
-        List<ICMTaskLayout> layouts = null;
+        List<ICMLayout> layouts = null;
 
         // a task can have properties but no layout
         try {
@@ -88,7 +83,7 @@ public class TaskDisplayHelper {
             // no action required
         }
 
-        if (layouts == null) {
+        if (layouts == null || layouts.isEmpty()) {
             List<ICMProperty> propertyList = null;
 
             try {
@@ -110,11 +105,11 @@ public class TaskDisplayHelper {
             final List<ICMProperty> propertyList = task.getProperties();
 
             // for each layout
-            for (ICMTaskLayout layout : layouts) {
+            for (ICMLayout layout : layouts) {
                 final List<ICMProperty> layoutProperties = new ArrayList<>();
 
                 // if this layout is a section - add a section header
-                if (layout.getType().equalsIgnoreCase(ICMTaskLayout.LAYOUT_SECTION)) {
+                if (layout.getType().equalsIgnoreCase(ICMLayout.LAYOUT_SECTION)) {
                     final TextView sectionHeader = (TextView) mInflater.inflate(R.layout.layout_task_section, null, false);
 
                     // if we don't have a title the section will just say "Generic properties"
@@ -129,7 +124,7 @@ public class TaskDisplayHelper {
                 for (ICMProperty p : propertyList) {
                     final String symbolicName = p.getSymbolicName();
                     boolean isInLayout;
-                    if (layout.getType().equalsIgnoreCase(ICMTaskLayout.LAYOUT_SECTION)) {
+                    if (layout.getType().equalsIgnoreCase(ICMLayout.LAYOUT_SECTION)) {
 
                         // section layouts have property names defined in a list
                         isInLayout = !TextUtils.isEmpty(symbolicName) && layout.getProperties().contains(symbolicName);
@@ -179,46 +174,52 @@ public class TaskDisplayHelper {
     private void displayProperties(LinearLayout taskContainer, List<ICMProperty> propertyList, boolean isEditable) {
 
         for (final ICMProperty p : propertyList) {
-            View v = mInflater.inflate(R.layout.layout_task_row, null, false);
+            if (p != null) {
+                View v = mInflater.inflate(R.layout.layout_task_row, null, false);
 
-            final TextView propertyName = (TextView) v.findViewById(R.id.property_name);
-            final EditText propertyValue = (EditText) v.findViewById(R.id.property_value);
-            final CheckBox propertyCheckbox = (CheckBox) v.findViewById(R.id.property_checkbox);
-            final Button propertyActionButton = (Button) v.findViewById(R.id.property_picker);
+                final TextView propertyName = (TextView) v.findViewById(R.id.property_name);
+                final EditText propertyValue = (EditText) v.findViewById(R.id.property_value);
+                final CheckBox propertyCheckbox = (CheckBox) v.findViewById(R.id.property_checkbox);
+                final Button propertyActionButton = (Button) v.findViewById(R.id.property_picker);
 
-            propertyName.setText(p.getDisplayName());
+                propertyName.setText(p.getDisplayName());
 
-            // property value edit text will be disabled by default
-            propertyValue.setText(p.getValue());
-            propertyValue.setEnabled(false);
+                // property value edit text will be disabled by default
+                boolean noValue = p.getValue() == null;
+                propertyValue.setText(noValue ? "" : String.valueOf(p.getValue()));
+                propertyValue.setEnabled(false);
 
-            // make some adjustments based on property type
-            if (p.getType() == ICMProperty.IBMPropertyTypeBoolean) {
-                propertyValue.setVisibility(View.GONE);
+                // make some adjustments based on property type
+                if (p.getType() == ICMProperty.IBMPropertyTypeBoolean) {
+                    propertyValue.setVisibility(View.GONE);
 
-                // update the value of the checkbox
-                propertyCheckbox.setChecked(Boolean.valueOf(p.getValue()));
-                propertyCheckbox.setVisibility(View.VISIBLE);
+                    // update the value of the checkbox
+                    propertyCheckbox.setChecked(noValue ? false : Boolean.valueOf(p.getValue().toString()));
+                    propertyCheckbox.setVisibility(View.VISIBLE);
 
-                // check box is disabled by default
-                propertyCheckbox.setEnabled(false);
-            } else if (p.getType() == ICMProperty.IBMPropertyTypeTimestamp) {
-                //parse time zone
-                final Date parseTimeZone = Utils.parseTimeZone(p.getValue());
+                    // check box is disabled by default
+                    propertyCheckbox.setEnabled(false);
+                } else if (p.getType() == ICMProperty.IBMPropertyTypeTimestamp) {
+                    //parse time zone
+                    Date parseTimeZone = null;
+                    if (!noValue) {
+                        parseTimeZone = Utils.parseTimeZone(p.getValue().toString());
+                    }
 
-                // format final value
-                if (parseTimeZone != null) {
-                    propertyValue.setText(Utils.formatDate(parseTimeZone));
+                    // format final value
+                    if (parseTimeZone != null) {
+                        propertyValue.setText(Utils.formatDate(parseTimeZone));
+                    }
                 }
-            }
 
-            // if editing is allowed and property is not read only - enable editing
-            if (isEditable && !p.isReadonly()) {
-                enableEditing(p, propertyValue, propertyCheckbox, propertyActionButton);
-            }
+                // if editing is allowed and property is not read only - enable editing
+                if (isEditable && !p.isReadonly()) {
+                    enableEditing(p, propertyValue, propertyCheckbox, propertyActionButton);
+                }
 
-            // finally, add to main container
-            taskContainer.addView(v);
+                // finally, add to main container
+                taskContainer.addView(v);
+            }
         }
     }
 

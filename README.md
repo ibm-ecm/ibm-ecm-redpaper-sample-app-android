@@ -30,13 +30,55 @@ Here are the prerequisites for using the SDK:
 
 #Package
 The package contains :
+
 - sample\_edit\_tasks : a folder containing the source code for the Case Manager Edit Task Sample app
 - sample\_nearby\_tasks : a folder containing the source code for the Case Manager Nearby Sample app
 
 
 #Installation
-Copy the archive on the computer where Andorid Studio is installed.<br/>
-From Android Studio select "Open ..." > "File" and select the folder of one of the sample. <br/>
+Copy the archive on the computer where Andorid Studio is installed.
+From Android Studio select "Open ..." > "File" and select the folder of one of the sample.
 Repete the previous step for the other sample.
+
+
+## Task Manager
+
+**Task-Manager Sample** is a simple application that shows you how to interact with the **Casemanager SDK** in order to obtain a list of the tasks, view task properties and perform actions on a task (update,lock,complete).
+
+The app tries to demonstrate the functionality of the library in a simple way, without too much complexity.
+
+
+### Screenshots
+
+
+<img src="screenshots/tm1.png" width="200"/>
+<img src="screenshots/tm3.png" width="200"/>
+<img src="screenshots/tm4.png" width="200"/>
+
+## Nearby Tasks
+
+**Nearby-Tasks Sample** is a simple application that shows you how to interact with the **Casemanager SDK** in order to obtain a list of the tasks that are close to the user's current location.
+
+The app tries to demonstrate the functionality of the library in a simple way, without too much complexity.
+
+### Setup
+
+**Before you can run the sample app you need to configure Google Maps for your project !**
+
+Basically, you need to replace the **google-maps-key** found in ***debug/res/values/google_maps_api.xml*** file with a new key generated for your Console Project. Instructions can be found [here](https://developers.google.com/maps/documentation/android-api/start).
+
+**If you do not replace the maps key you won't be able to see the map !**
+
+### Screenshots
+
+
+<img src="screenshots/nbt1.png" width="200"/>
+<img src="screenshots/nbt2.png" width="200"/>
+<img src="screenshots/nbt3.png" width="200"/>
+
+
+## LICENSE
+
+[Apache License Version 2.0](../LICENSE)
 
 

@@ -22,7 +22,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.ibm.casesdk.sample.nearbytasks.R;
 import com.ibm.casesdk.sample.nearbytasks.utils.Utils;
 
@@ -71,17 +70,9 @@ public abstract class BaseMapLocationActivity extends BaseActivity implements On
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterLocationUpdates();
 
-        // stop getting location updates
-        try {
 
-            // this will throw an error if the Google API client is not connected
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            mReceivingUpdates = false;
-        } catch (Exception e) {
-            // nothing we can really do
-            mReceivingUpdates = false;
-        }
     }
 
     /**
@@ -104,6 +95,8 @@ public abstract class BaseMapLocationActivity extends BaseActivity implements On
         mMap.getUiSettings().setTiltGesturesEnabled(false);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         //or mMap.getUiSettings().setAllGesturesEnabled(true);
+
+        setupCurrentLocation();
 
         // set info window click listener
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -148,6 +141,11 @@ public abstract class BaseMapLocationActivity extends BaseActivity implements On
         if (requestCode == PERMISSIONS_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mGoogleApiClient.connect();
+
+                if (mMap != null) {
+                    mMap.setMyLocationEnabled(true);
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                }
             } else {
                 String message = getString(R.string.err_no_location_permission);
 
@@ -203,10 +201,10 @@ public abstract class BaseMapLocationActivity extends BaseActivity implements On
             final LatLng pos = new LatLng(this.mLastLocation.getLatitude(), this.mLastLocation.getLongitude());
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, zoomLevel));
-
-            mLastLocationMarker = mMap.addMarker(new MarkerOptions().position(pos)
-                    .title(getString(R.string.msg_last_known_location))
-                    .snippet(Utils.getAddressFromLocation(this, mLastLocation)));
+//
+//            mLastLocationMarker = mMap.addMarker(new MarkerOptions().position(pos)
+//                    .title(getString(R.string.msg_last_known_location))
+//                    .snippet(Utils.getAddressFromLocation(this, mLastLocation)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
         }
     }
@@ -214,8 +212,10 @@ public abstract class BaseMapLocationActivity extends BaseActivity implements On
     @TargetApi(23)
     protected void checkAppPermission(@NonNull String permission) {
         if (checkSelfPermission(permission)
-                != PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED) {
 
+            mGoogleApiClient.connect();
+        } else {
             // Should we show an explanation?
             if (shouldShowRequestPermissionRationale(permission)) {
                 // Explain to the user why we need the location
@@ -223,6 +223,31 @@ public abstract class BaseMapLocationActivity extends BaseActivity implements On
 
             requestPermissions(new String[]{permission},
                     PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    protected void unregisterLocationUpdates() {
+        // stop getting location updates
+        try {
+
+            // this will throw an error if the Google API client is not connected
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mReceivingUpdates = false;
+        } catch (Exception e) {
+            // nothing we can really do
+            mReceivingUpdates = false;
+        }
+    }
+
+    private void setupCurrentLocation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            }
+        } else {
+            mMap.setMyLocationEnabled(true);
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
     }
 }

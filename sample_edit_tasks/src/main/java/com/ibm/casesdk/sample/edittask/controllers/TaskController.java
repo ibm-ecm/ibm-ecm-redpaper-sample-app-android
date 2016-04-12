@@ -3,7 +3,7 @@ package com.ibm.casesdk.sample.edittask.controllers;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import com.ibm.casemanagersdk.internal.utils.GsonParser;
+import com.google.gson.Gson;
 import com.ibm.casemanagersdk.sdk.interfaces.ICMCallback;
 import com.ibm.casemanagersdk.sdk.interfaces.ICMInBasket;
 import com.ibm.casemanagersdk.sdk.interfaces.ICMProperty;
@@ -250,10 +250,7 @@ public class TaskController {
      * @param task
      */
     public void lockTask(@NonNull ICMTask task) {
-        // find the task basket for this task
-        final ICMInBasket taskBasket = findTaskBasket(task);
-
-        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(taskBasket);
+        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(mCurrentInbasket);
         final TaskManager taskManager = inbasketManager.getTaskManager(task);
 
         taskManager.lockTask(new ICMCallback<ICMTask>() {
@@ -275,10 +272,7 @@ public class TaskController {
      * @param task
      */
     public void unlockTask(@NonNull ICMTask task) {
-        // find the task basket for this task
-        final ICMInBasket taskBasket = findTaskBasket(task);
-
-        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(taskBasket);
+        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(mCurrentInbasket);
         final TaskManager taskManager = inbasketManager.getTaskManager(task);
 
         taskManager.unlockTask(new ICMCallback<ICMTask>() {
@@ -302,8 +296,7 @@ public class TaskController {
      *                          {@link ICMProperty#getSymbolicName()}
      */
     public void updateTask(@NonNull ICMTask task, final Map<String, String> updatedProperties) {
-        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(
-                mRoleManager.getRole().getWorkbaskets().get(0));
+        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(mCurrentInbasket);
         final TaskManager taskManager = inbasketManager.getTaskManager(task);
         taskManager.updateTask(updatedProperties, new ICMCallback<ICMTask>() {
             @Override
@@ -324,15 +317,14 @@ public class TaskController {
      * @param task        the task to perform the operation on
      * @param actionIndex the index of the action to be performed - MUST be a valid index for the {@code task.getResponses()} list
      */
-    public void performTaskAction(@NonNull ICMTask task, @NonNull Map<String, String> properties, final int actionIndex) {
-        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(
-                mRoleManager.getRole().getWorkbaskets().get(0));
+    public void performTaskAction(@NonNull final ICMTask task, @NonNull Map<String, String> properties, final int actionIndex) {
+        final InBasketManager inbasketManager = mSolutionManager.getInbasketManager(mCurrentInbasket);
         final TaskManager taskManager = inbasketManager.getTaskManager(task);
         taskManager.completeTask(task.getResponses().get(actionIndex),
-                GsonParser.getParser().toJson(properties), new ICMCallback<ICMTask>() {
+                new Gson().toJson(properties), new ICMCallback<Object>() {
                     @Override
-                    public void onSuccess(ICMTask icmTask) {
-                        mViewModel.onTaskActionPerformed(icmTask, actionIndex);
+                    public void onSuccess(Object object) {
+                        mViewModel.onTaskActionPerformed(task, actionIndex);
                     }
 
                     @Override

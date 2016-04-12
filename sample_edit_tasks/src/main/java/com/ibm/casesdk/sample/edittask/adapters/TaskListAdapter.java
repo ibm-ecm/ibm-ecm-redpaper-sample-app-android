@@ -1,7 +1,6 @@
 package com.ibm.casesdk.sample.edittask.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ibm.casemanagersdk.sdk.interfaces.ICMTask;
 import com.ibm.casesdk.sample.edittask.R;
@@ -46,8 +44,8 @@ public class TaskListAdapter extends ClickkableRecyclerAdapter<TaskListAdapter.T
         final ICMTask task = mTasks.get(position);
 
         //  populate the rest of the fields
-        holder.taskName.setText(task.getStepName());
-        holder.taskSubject.setText(task.getSubject());
+        holder.taskName.setText(task.getCaseTitle());
+        holder.taskSubject.setText(task.getStepName());
 
         if (TextUtils.isEmpty(task.getLockedUser())) {
             holder.taskStatus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_lock_open));

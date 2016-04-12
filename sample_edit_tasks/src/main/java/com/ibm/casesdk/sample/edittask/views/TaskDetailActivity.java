@@ -1,22 +1,17 @@
 package com.ibm.casesdk.sample.edittask.views;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ibm.casemanagersdk.sdk.interfaces.ICMProperty;
 import com.ibm.casemanagersdk.sdk.interfaces.ICMRole;
@@ -203,6 +198,8 @@ public class TaskDetailActivity extends BaseActivity implements TaskViewModel, T
 
         // udpate icon state
         updateTaskStatusIcon();
+
+        finish();
     }
 
     @Override
@@ -264,7 +261,7 @@ public class TaskDetailActivity extends BaseActivity implements TaskViewModel, T
                 // increase counter
                 updateMenuState(true);
             }
-        } else if (property.getValue().equalsIgnoreCase(newValue)) {
+        } else if (property.getValue().toString().equalsIgnoreCase(newValue)) {
 
             //decrease counter
             updateMenuState(false);

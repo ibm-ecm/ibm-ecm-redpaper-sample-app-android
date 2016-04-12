@@ -3,22 +3,13 @@ apply from: '../android_commons.gradle'
 apply from: '../android_dependencies.gradle'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.ibm.casesdk.sample.edittask"
-        minSdkVersion 19
-        targetSdkVersion 23
-        versionCode 3
+        versionCode 8
         versionName "1.0"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -43,7 +34,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile(name: 'CaseManagerSDK-1.0.2-RELEASE', ext: 'aar')
+    compile(name: 'IBMCaseManagerSDK', ext: 'aar')
 
     def uiDependenciesv = rootProject.ext.uiDependencies
     def domainDependencies = rootProject.ext.domainDependencies
@@ -55,7 +46,8 @@ dependencies {
     compile uiDependencies.butterKnife
 
     compile domainDependencies.gson
-    compile domainDependencies.retrofit
     compile domainDependencies.okHttp
     compile domainDependencies.okHttpUrlConnection
+    compile domainDependencies.okHttpLogger
+    compile domainDependencies.retrofitGsonConverter
 }
